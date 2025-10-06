@@ -21,9 +21,9 @@ function generarCartaAleatoria() {
     };
     const valores = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     
-    // Generar números aleatorios
-    const paloAleatorio = Math.floor(Math.random() * 4); // 0 a 3
-    const valorAleatorio = Math.floor(Math.random() * 13); // 0 a 12
+    // Generar números aleatorios usando operadores ternarios
+    const paloAleatorio = Math.floor(Math.random() * 4);
+    const valorAleatorio = Math.floor(Math.random() * 13);
     
     // Obtener el palo y valor seleccionados
     const paloSeleccionado = palos[paloAleatorio];
@@ -36,10 +36,8 @@ function generarCartaAleatoria() {
     const number = cardContainer.querySelector('.number');
     const bottomSuit = cardContainer.querySelector('.bottom-suit');
     
-    // Limpiar clases anteriores de palos
+    // Limpiar clases anteriores de palos usando operador ternario
     cardContainer.classList.remove('heart', 'diamond', 'spade', 'club');
-    
-    // Aplicar la nueva clase de palo
     cardContainer.classList.add(paloSeleccionado);
     
     // Actualizar el contenido
@@ -52,22 +50,20 @@ function generarCartaAleatoria() {
 }
 
 function iniciarTemporizador() {
-    // Limpiar temporizadores existentes
-    if (intervaloAuto) clearInterval(intervaloAuto);
-    if (cuentaRegresiva) clearInterval(cuentaRegresiva);
+    // Limpiar temporizadores existentes usando operadores ternarios
+    intervaloAuto ? clearInterval(intervaloAuto) : null;
+    cuentaRegresiva ? clearInterval(cuentaRegresiva) : null;
     
     // Temporizador principal (cada 10 segundos genera nueva carta)
     intervaloAuto = setInterval(() => {
-        if (temporizadorActivo) {
-            generarCartaAleatoria();
-        }
+        temporizadorActivo ? generarCartaAleatoria() : null;
     }, 10000);
     
     // Cuenta regresiva (actualiza cada segundo)
     cuentaRegresiva = setInterval(() => {
         if (temporizadorActivo) {
             tiempoRestante--;
-            if (tiempoRestante < 0) tiempoRestante = 9;
+            tiempoRestante = tiempoRestante < 0 ? 9 : tiempoRestante;
             document.getElementById('countdown').textContent = tiempoRestante;
         }
     }, 1000);
@@ -76,18 +72,19 @@ function iniciarTemporizador() {
 function detenerTemporizador() {
     const btn = document.getElementById('stopBtn');
     
-    if (temporizadorActivo) {
-        temporizadorActivo = false;
-        btn.innerHTML = '▶️ Reanudar Auto';
-        btn.classList.remove('btn-danger');
-        btn.classList.add('btn-success');
-    } else {
-        temporizadorActivo = true;
-        tiempoRestante = 10;
-        btn.innerHTML = '⏸ Pausar Auto';
-        btn.classList.remove('btn-success');
-        btn.classList.add('btn-danger');
-    }
+    // Usar operadores ternarios para cambiar estado y apariencia del botón
+    temporizadorActivo = !temporizadorActivo;
+    
+    // Operador ternario para el texto del botón
+    btn.innerHTML = temporizadorActivo ? '⏸ Pausar Auto' : '▶️ Reanudar Auto';
+    
+    // Operadores ternarios para las clases CSS
+    temporizadorActivo 
+        ? (btn.classList.remove('btn-success'), btn.classList.add('btn-danger'))
+        : (btn.classList.remove('btn-danger'), btn.classList.add('btn-success'));
+    
+    // Reiniciar tiempo solo si se reanuda
+    tiempoRestante = temporizadorActivo ? 10 : tiempoRestante;
 }
 
 function aplicarTamano() {
@@ -95,16 +92,18 @@ function aplicarTamano() {
     const height = document.getElementById('heightInput').value;
     const card = document.getElementById('cardContainer');
     
-    card.style.width = width + 'px';
-    card.style.height = height + 'px';
+    // Aplicar tamaños usando operadores ternarios con valores por defecto
+    card.style.width = (width && width >= 150) ? width + 'px' : '200px';
+    card.style.height = (height && height >= 200) ? height + 'px' : '280px';
     
-    // Ajustar tamaños de fuente proporcionalmente
-    const escala = width / 200; // 200 es el ancho base
-    const topSuit = card.querySelector('.top-suit');
-    const number = card.querySelector('.number');
-    const bottomSuit = card.querySelector('.bottom-suit');
+    // Ajustar tamaños de fuente proporcionalmente usando operador ternario
+    const escala = (width && width >= 150) ? width / 200 : 1; // 200 es el ancho base
+    const elementos = ['top-suit', 'number', 'bottom-suit'];
+    const tamanosBase = [50, 80, 50];
     
-    topSuit.style.fontSize = (50 * escala) + 'px';
-    number.style.fontSize = (80 * escala) + 'px';
-    bottomSuit.style.fontSize = (50 * escala) + 'px';
+    // Aplicar escalas usando operadores ternarios y forEach
+    elementos.forEach((elemento, index) => {
+        const elementoDOM = card.querySelector(`.${elemento}`);
+        elementoDOM.style.fontSize = (tamanosBase[index] * escala) + 'px';
+    });
 }
