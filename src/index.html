@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Cartas Aleatorias</title>
+    <link rel="icon" href="data:,">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -11,7 +12,28 @@
 <body>
     <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
         <div class="text-center">
-            <h1 class="display-4 fw-bold text-white mb-5">Generador de Cartas</h1>
+            <h1 class="display-4 fw-bold text-white mb-5"> Generador de Cartas</h1>
+            
+            <!-- Controles de tamaño -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-auto">
+                    <div class="input-group">
+                        <span class="input-group-text">Ancho (px)</span>
+                        <input type="number" class="form-control" id="widthInput" value="200" min="150" max="400">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="input-group">
+                        <span class="input-group-text">Alto (px)</span>
+                        <input type="number" class="form-control" id="heightInput" value="280" min="200" max="500">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" onclick="aplicarTamano()">Aplicar</button>
+                </div>
+            </div>
+
+            <!-- Carta -->
             <div id="cardContainer" class="card mx-auto mb-4">
                 <div class="card-body p-4">
                     <div class="top-suit"></div>
@@ -19,9 +41,19 @@
                     <div class="bottom-suit"></div>
                 </div>
             </div>
-            <button class="btn btn-light btn-lg rounded-pill px-5" onclick="location.reload()">
-                🔄 Generar Nueva Carta
-            </button>
+
+            <!-- Botones de control -->
+            <div class="d-flex gap-3 justify-content-center">
+                <button class="btn btn-light btn-lg rounded-pill px-5" onclick="generarCartaAleatoria()">
+                    🔄 Generar Nueva Carta
+                </button>
+                <button class="btn btn-danger btn-lg rounded-pill px-4" id="stopBtn" onclick="detenerTemporizador()">
+                    ⏸ Pausar Auto
+                </button>
+            </div>
+
+            <!-- Contador de tiempo -->
+            <p class="text-white mt-3 fs-5">Próxima carta en: <span id="countdown">10</span> segundos</p>
         </div>
     </div>
     
