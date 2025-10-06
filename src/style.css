@@ -1,5 +1,77 @@
-@import "bootstrap/dist/css/bootstrap.min.css";
+/* Fondo degradado personalizado */
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
 
-body{
-    background: white;
+/* Estilos personalizados para la carta */
+.card {
+    width: 200px;
+    height: 280px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.top-suit {
+    font-size: 50px;
+    text-align: left;
+    line-height: 1;
+}
+
+.number {
+    font-size: 80px;
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-suit {
+    font-size: 50px;
+    text-align: right;
+    line-height: 1;
+    transform: rotate(180deg);
+    align-self: flex-end;
+}
+
+/* Clases para cada palo */
+.heart {
+    color: #e74c3c;
+}
+
+.diamond {
+    color: #e74c3c;
+}
+
+.spade {
+    color: #2c3e50;
+}
+
+.club {
+    color: #2c3e50;
+}
+
+/* Sombra adicional al título */
+h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Efecto hover para el botón */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn:active {
+    transform: translateY(0);
 }

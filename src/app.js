@@ -1,48 +1,42 @@
-import "bootstrap";
-import "./style.css";
-
-
-import "./assets/img/rigo-baby.jpg";
-import "./assets/img/4geeks.ico";
-
+// Ejecutar cuando la página cargue completamente
 window.onload = function() {
-  //write your code here
-  import "bootstrap";
-import "./style.css";
-
-import "./assets/img/rigo-baby.jpg";
-import "./assets/img/4geeks.ico";
-
-window.onload = function() {
-  // Arrays con los valores y palos posibles
-  const valores = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-  const palos = [
-    { nombre: "heart", simbolo: "♥" },
-    { nombre: "diamond", simbolo: "♦" },
-    { nombre: "spade", simbolo: "♠" },
-    { nombre: "club", simbolo: "♣" }
-  ];
-
-  // Generar números aleatorios
-  const valorAleatorio = Math.floor(Math.random() * valores.length);
-  const paloAleatorio = Math.floor(Math.random() * palos.length);
-
-  // Obtener el valor y palo seleccionados
-  const valor = valores[valorAleatorio];
-  const palo = palos[paloAleatorio];
-
-  // Crear el HTML de la carta
-  const cartaHTML = `
-    <div class="card ${palo.nombre}">
-      <div class="top-suit">${palo.simbolo}</div>
-      <div class="number">${valor}</div>
-      <div class="bottom-suit">${palo.simbolo}</div>
-    </div>
-  `;
-
-  // Limpiar el contenido del body y agregar la carta
-  document.body.innerHTML = cartaHTML;
-
-  console.log(`Carta generada: ${valor} de ${palo.nombre}`);
-
+  generarCartaAleatoria();
 };
+
+function generarCartaAleatoria() {
+  // Arrays con los valores posibles
+  const palos = ['heart', 'diamond', 'spade', 'club'];
+  const simbolosPalos = {
+      'heart': '♥',
+      'diamond': '♦',
+      'spade': '♠',
+      'club': '♣'
+  };
+  const valores = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  
+  // Generar números aleatorios
+  const paloAleatorio = Math.floor(Math.random() * 4); // 0 a 3
+  const valorAleatorio = Math.floor(Math.random() * 13); // 0 a 12
+  
+  // Obtener el palo y valor seleccionados
+  const paloSeleccionado = palos[paloAleatorio];
+  const valorSeleccionado = valores[valorAleatorio];
+  const simboloPalo = simbolosPalos[paloSeleccionado];
+  
+  // Obtener elementos del DOM
+  const cardContainer = document.getElementById('cardContainer');
+  const topSuit = cardContainer.querySelector('.top-suit');
+  const number = cardContainer.querySelector('.number');
+  const bottomSuit = cardContainer.querySelector('.bottom-suit');
+  
+  // Limpiar clases anteriores de palos
+  cardContainer.classList.remove('heart', 'diamond', 'spade', 'club');
+  
+  // Aplicar la nueva clase de palo
+  cardContainer.classList.add(paloSeleccionado);
+  
+  // Actualizar el contenido
+  topSuit.textContent = simboloPalo;
+  number.textContent = valorSeleccionado;
+  bottomSuit.textContent = simboloPalo;
+}
